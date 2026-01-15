@@ -2,8 +2,9 @@ import "../component/btnAzulCom"
 import "../component/piedraCom"
 import "../component/papelCom"
 import "../component/tijeraCom"
+import "../component/btnImputCom"
 
-export const inicioPages = ():HTMLElement=>{
+export const login = ():HTMLElement=>{
     const conteiner = document.createElement('div');
     if(conteiner){
     conteiner.innerHTML = `
@@ -52,6 +53,7 @@ export const inicioPages = ():HTMLElement=>{
             margin-bottom: 40px;
             gap: 20px;
       }
+
     </style>
 
     <div class="body">
@@ -59,7 +61,7 @@ export const inicioPages = ():HTMLElement=>{
         <h1 class="title">Piedra <br> Papel <span>ó</span> <br> Tijera</h1>
         
         <div class="botones">
-            <btn-azul-com class="boton-jugar">Nuevo Juego</btn-azul-com>
+            <btn-input-com class="inputBtn" placeholder="código" ></btn-input-com>
             <btn-azul-com class="boton-sala">Ingresar a sala</btn-azul-com>
         </div>
 

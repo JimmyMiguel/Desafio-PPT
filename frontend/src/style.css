@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Odibee Sans", cursive;
+  background-image: url(./assets/fondoJuego.svg);
+  background-repeat: repeat;
+  background-size: 80px auto;
+   min-height: 100vh;
+  color: rgb(90, 16, 16);
+}
+
+#app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

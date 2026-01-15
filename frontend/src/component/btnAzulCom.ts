@@ -12,8 +12,8 @@ export class BtnAzulCom extends HTMLElement {
                  .btn {
                     background-color: rgba(0, 108, 252, 1);
                     border: rgba(0, 25, 151, 1) solid 10px;
-                    width: 364px;
-                    height: 84px;
+                    width: 322px;
+                    height: 80px;
                     border-radius: 10px;
                     box-sizing: border-box;  
                     font-weight: 400;

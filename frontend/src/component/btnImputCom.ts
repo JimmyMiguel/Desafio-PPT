@@ -16,38 +16,33 @@ export class btnInputCom extends HTMLElement {
 
             this.shadowRoot.innerHTML = `
             <style>
-            ::placeholder {
-            color: #999;
-            font-style: italic;
-            font-weight: 400;
-            font-size: 45px;
-            line-height: 100%;
-            letter-spacing: 5%;
-            text-align: center;
- 
-            }
 
             .btn-input{
             border: rgba(0, 25, 151, 1) solid 10px;
-            width: 364px;
-            height: 84px;
+            width: 322px;
+            height: 80px;
             border-radius: 10px;
             box-sizing: border-box;  
-            font-weight: 400;
+            font-weight: 600;
             font-size: 45px;
             letter-spacing: 0.05em;  
             text-align: center;
             display: flex;
             justify-content: center;
             align-items: center;
-            color:rgb(0, 0, 0);
+            color:rgba(0, 144, 72, 1);
             }
             .btn-input::placeholder {
             color: rgba(217, 217, 217, 1);      
-            font-style: italic;
-            font-size: 0.5em;
-            opacity: 1;     
+            font-style: bold;
+            font-size: 0.9rem;
+            opacity: 1;    
+            font-size: 45px;
+            font-weight: 400;
+            font-family: Odibee Sans;
+ 
             }
+             
             </style>
             
             <input class="btn-input" type="text" placeholder="${textoPlaceholder}" />

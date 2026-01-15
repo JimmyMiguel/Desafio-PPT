@@ -1,25 +1,17 @@
-import "./component/btnAzulCom";
-import "./component/btnImputCom"
-import "./component/tijeraCom"
-import "./component/piedraCom"
-import "./component/papelCom"
-import "./component/resultadoCom"
-import "./component/timeCom"
-
-
+import "../src/pages/inicioPage"
+import "../src/pages/login"
+import { inicioPages } from "../src/pages/inicioPage"
+import { login } from "../src/pages/login"
 
 
 function main() {
-    const conteiner = document.getElementById("app")
-    if (conteiner) {
-        conteiner.innerHTML = `
-        <style>
-        .tijera{
-        width:200px
+    const app = document.querySelector("#app")
+    const inicio = login()
+    if(app){
+
+        app.appendChild(inicio)
+        
         }
-        </style>
-        <time-com  class=""></time-com>
-       `
-    }
+
 }
 main()
