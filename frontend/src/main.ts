@@ -1,17 +1,12 @@
-import "../src/pages/inicioPage"
-import "../src/pages/login"
-import { inicioPages } from "../src/pages/inicioPage"
-import { login } from "../src/pages/login"
+import "../src/routes/router"
+import { arrayRoutes, router } from "../src/routes/router"
 
 
 function main() {
-    const app = document.querySelector("#app")
-    const inicio = login()
-    if(app){
-
-        app.appendChild(inicio)
-        
-        }
-
+    const app = document.querySelector("#app") as HTMLElement
+    if(!app === null){
+        router(arrayRoutes,app)
+    }
+ 
 }
 main()
