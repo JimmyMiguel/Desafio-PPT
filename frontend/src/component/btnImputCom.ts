@@ -46,7 +46,7 @@ export class btnInputCom extends HTMLElement {
             </style>
             
             <input class="btn-input" type="text" placeholder="${textoPlaceholder}" />
-            `
+             `
         }
     }
 }

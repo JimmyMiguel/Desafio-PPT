@@ -4,7 +4,7 @@ import "../component/papelCom"
 import "../component/tijeraCom"
 import "../component/btnImputCom"
 
-export const login = ():HTMLElement=>{
+export const createAccaunt = ():HTMLElement=>{
     const conteiner = document.createElement('div');
     if(conteiner){
     conteiner.innerHTML = `
@@ -31,7 +31,7 @@ export const login = ():HTMLElement=>{
         font-weight: bold;
         color: #009048;
         text-align: left;
-        margin-top: 70px;
+        margin-top: 35px;
         line-height: 0.9;
       }
 
@@ -53,6 +53,15 @@ export const login = ():HTMLElement=>{
             margin-bottom: 40px;
             gap: 20px;
       }
+            .btn-txt{
+            font-family: Odibee Sans;
+            font-weight: 400;
+            font-size: 45px;
+            color:rgba(0, 0, 0, 0):
+            text-align: center;
+            margin-bottom: -18px;
+  
+            }
 
     </style>
 
@@ -60,8 +69,9 @@ export const login = ():HTMLElement=>{
 
         <h1 class="title">Piedra <br> Papel <span>ó</span> <br> Tijera</h1>
         
+        <h1 class="btn-txt" >Tu Nombre</h1>
         <div class="botones">
-            <btn-input-com class="inputBtn" placeholder="código" ></btn-input-com>
+            <btn-input-com class="inputBtn"></btn-input-com>
             <btn-azul-com class="boton-sala">Ingresar a sala</btn-azul-com>
         </div>
 

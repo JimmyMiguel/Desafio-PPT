@@ -2,8 +2,9 @@ import "../component/btnAzulCom"
 import "../component/piedraCom"
 import "../component/papelCom"
 import "../component/tijeraCom"
-
+ import { goTo } from "../main"
 export const inicioPages = ():HTMLElement=>{
+  
     const conteiner = document.createElement('div');
     if(conteiner){
     conteiner.innerHTML = `
@@ -70,7 +71,13 @@ export const inicioPages = ():HTMLElement=>{
         </div>
     </div>
     `
+
+    const botonJugar = conteiner.querySelector(".boton-jugar")
+    botonJugar?.addEventListener("click", ()=>{
+      goTo("/createAccaunt")
+      
+    })
+    
     }
     return conteiner
- 
-}
+  }
