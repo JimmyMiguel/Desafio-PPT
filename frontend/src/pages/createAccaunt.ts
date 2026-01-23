@@ -69,8 +69,8 @@ export const createAccaunt = ():HTMLElement=>{
 
         <h1 class="title">Piedra <br> Papel <span>ó</span> <br> Tijera</h1>
         
-        <h1 class="btn-txt" >Tu Nombre</h1>
         <div class="botones">
+        <h1 class="btn-txt" >Tu Nombre</h1>
             <btn-input-com class="inputBtn"></btn-input-com>
             <btn-azul-com class="boton-sala">Ingresar a sala</btn-azul-com>
         </div>

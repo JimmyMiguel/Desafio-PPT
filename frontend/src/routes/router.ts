@@ -1,6 +1,7 @@
 import { createAccaunt } from "../pages/createAccaunt";
 import { inicioPages } from "../pages/inicioPage";
 import { login } from "../pages/login";
+import { rooms } from "../pages/rooms";
  
 
 type Route = {
@@ -24,6 +25,10 @@ export const arrayRoutes: Route[] = [
     {
         path:"/createAccaunt",
         view: createAccaunt
+    },
+    {
+        path:"/rooms",
+        view: rooms
     }
 
 ]
