@@ -4,7 +4,7 @@ import "../component/papelCom"
 import "../component/tijeraCom"
 import "../component/btnImputCom"
 
-export const login = ():HTMLElement=>{
+export const login = (goTo:Function):HTMLElement=>{
     const conteiner = document.createElement('div');
     if(conteiner){
     conteiner.innerHTML = `

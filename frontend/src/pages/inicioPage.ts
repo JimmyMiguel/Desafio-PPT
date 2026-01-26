@@ -2,11 +2,10 @@ import "../component/btnAzulCom"
 import "../component/piedraCom"
 import "../component/papelCom"
 import "../component/tijeraCom"
- import { goTo } from "../main"
-export const inicioPages = ():HTMLElement=>{
-  
-    const conteiner = document.createElement('div');
-    if(conteiner){
+export const inicioPages = (goTo: Function): HTMLElement => {
+
+  const conteiner = document.createElement('div');
+  if (conteiner) {
     conteiner.innerHTML = `
 <style>
       @import url("https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap");
@@ -73,11 +72,11 @@ export const inicioPages = ():HTMLElement=>{
     `
 
     const botonJugar = conteiner.querySelector(".boton-jugar")
-    botonJugar?.addEventListener("click", ()=>{
+    botonJugar?.addEventListener("click", () => {
       goTo("/createAccaunt")
-      
+
     })
-    
-    }
-    return conteiner
+
   }
+  return conteiner
+}

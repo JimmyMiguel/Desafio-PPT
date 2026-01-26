@@ -1,4 +1,4 @@
-import { createAccaunt } from "../pages/createAccaunt";
+ import { createAccaunt } from "../pages/createAccaunt";
 import { inicioPages } from "../pages/inicioPage";
 import { login } from "../pages/login";
 import { rooms } from "../pages/rooms";
@@ -6,7 +6,7 @@ import { rooms } from "../pages/rooms";
 
 type Route = {
     path: string;
-    view: () => HTMLElement;
+    view: (goTo:Function) => HTMLElement;
 };
 
 export const arrayRoutes: Route[] = [
@@ -35,7 +35,10 @@ export const arrayRoutes: Route[] = [
 
 export function router(routes: Route[], container: HTMLElement) {
 
-
+    function gotTo(path: string) {
+        window.history.pushState({}, "", path)
+        render()
+    }
 
     function render() {
         const rutaNavegador = window.location.pathname
@@ -43,7 +46,7 @@ export function router(routes: Route[], container: HTMLElement) {
 
         if (newPath) {
             container.innerHTML = ""
-            container.appendChild(newPath.view())
+            container.appendChild(newPath.view(gotTo))
 
         }
         else {
@@ -66,10 +69,5 @@ export function router(routes: Route[], container: HTMLElement) {
     navigation()
 
 
-    return function gotTo(path: string) {
-        window.history.pushState({}, "", path)
-        render()
 
-
-    }
 }

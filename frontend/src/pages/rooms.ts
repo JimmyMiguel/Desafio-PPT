@@ -1,10 +1,9 @@
 import "../component/piedraCom"
 import "../component/papelCom"
 import "../component/tijeraCom"
-import { goTo } from "../main"
 
 
-export const rooms = (): HTMLElement => {
+export const rooms = (goTo:Function): HTMLElement => {
 
     const conteiner = document.createElement('div');
     if (conteiner) {
@@ -33,16 +32,18 @@ export const rooms = (): HTMLElement => {
             font-family: American Typewriter;
             font-weight: 600;
             font-size: 24px;
-            gap: 260px;
+            gap: 200px;
             align-content: center;
+            align-items:end;
+
         }
 
             .bloque-1 {
-            display: flex;
-            flex-direction: column;
-            align-content: flex-start;
-            align-items: flex-start;
-            margin-top:30px
+                display: flex;
+                flex-direction: column;
+                align-content: flex-start;
+                align-items: flex-start;
+                margin-top:30px
         }
             .player-1, .player-2 {
                 display: flex;
@@ -50,13 +51,25 @@ export const rooms = (): HTMLElement => {
                 align-items: center;
                 align-content: center;
                 justify-content: space-between;
-                gap:10px;
+                gap:20px;
         }
             .room-info{
-            font-family: American Typewriter;
-            font-weight: 600;
-            font-size: 24px;
-            }
+                font-family: American Typewriter;
+                font-weight: 600;
+                font-size: 25px;
+                display:flex;
+                flex-direction: column;
+                align-items:end;
+                }
+                .room-info .room-id{
+                font-weight: 400;
+
+                }
+                .invite-section{
+                display:flex;
+                
+                
+                }
 
 
     </style>
@@ -79,15 +92,15 @@ export const rooms = (): HTMLElement => {
 
 
             <div class="room-info">
-                <span class="room-label">Sala</span>
-                <span class="room-id">982739</span>
+                <h3 class="room-label"> Sala: </h3>
+                <h3 class="room-id">982739 </h3>
             </div>          
             
         </header>
 
         <section class="invite-section">
             <p class="invite-text">Compartí el código:</p>
-            <h2 class="game-code"></h2>
+            <h2 class="game-code">982739</h2>
             <p class="invite-subtext">Con tu contrincante</p>
         </section>
 
@@ -98,12 +111,6 @@ export const rooms = (): HTMLElement => {
         </div>
     </div>
     `
-
-        const botonJugar = conteiner.querySelector(".boton-jugar")
-        botonJugar?.addEventListener("click", () => {
-            goTo("/createAccaunt")
-
-        })
 
     }
     return conteiner
