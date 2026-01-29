@@ -4,7 +4,7 @@ import "../component/papelCom"
 import "../component/tijeraCom"
 import "../component/btnImputCom"
 
-export const createAccaunt = (goTo:Function):HTMLElement=>{
+export const createAccaunt = ():HTMLElement=>{
     const conteiner = document.createElement('div');
     if(conteiner){
     conteiner.innerHTML = `

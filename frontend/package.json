@@ -9,7 +9,12 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/uuid": "^11.0.0",
     "typescript": "~5.9.3",
     "vite": "^7.2.4"
+  },
+  "dependencies": {
+    "firebase": "^12.8.0",
+    "uuid": "^13.0.0"
   }
 }

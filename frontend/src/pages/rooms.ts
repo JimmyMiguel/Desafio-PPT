@@ -19,7 +19,7 @@ export const rooms = (goTo:Function): HTMLElement => {
             justify-content: space-between;
             box-sizing: border-box;
             align-items: center;
-            gap:260px;
+            gap:160px;
         }
         
         
@@ -52,6 +52,8 @@ export const rooms = (goTo:Function): HTMLElement => {
                 align-content: center;
                 justify-content: space-between;
                 gap:20px;
+                font-size: 24px;
+
         }
             .room-info{
                 font-family: American Typewriter;
@@ -65,10 +67,15 @@ export const rooms = (goTo:Function): HTMLElement => {
                 font-weight: 400;
 
                 }
-                .invite-section{
-                display:flex;
+                .invite-section {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 30px;
+                    font-size: 48px;
+                }
                 
-                
+                .invite-text, .invite-subtext {
+                    font-size:35px
                 }
 
 
