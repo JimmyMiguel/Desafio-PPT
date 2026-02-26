@@ -3,10 +3,13 @@ import "../component/piedraCom"
 import "../component/papelCom"
 import "../component/tijeraCom"
 import "../component/btnImputCom"
+import { state } from "../core/state"
 
-export const createAccaunt = ():HTMLElement=>{
-    const conteiner = document.createElement('div');
-    if(conteiner){
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000"
+
+export const createAccaunt = (goTo: Function): HTMLElement => {
+  const conteiner = document.createElement('div');
+  if (conteiner) {
     conteiner.innerHTML = `
 <style>
       @import url("https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap");
@@ -82,12 +85,47 @@ export const createAccaunt = ():HTMLElement=>{
         </div>
     </div>
     `
+  }
+
+  function onIngresarSala() {
+    const inputCom = conteiner.querySelector(".inputBtn") as HTMLElement & { shadowRoot: ShadowRoot }
+    const input = inputCom?.shadowRoot?.querySelector("input") as HTMLInputElement
+    const name = input?.value?.trim() ?? ""
+    if (!name) {
+      alert("Escribí tu nombre para continuar")
+      return
     }
-    
-        
-    return conteiner
+    state.createRoom()
+    state.setState({ playerName: name })
+    const roomId = state.getState().roomId
+    const url = `${API_BASE}/rooms`
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ roomId, name }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Error al crear la sala")
+        goTo("/rooms")
+      })
+      .catch((e: unknown) => {
+        console.error("Error crear sala:", e)
+        const isNetworkError =
+          e instanceof TypeError ||
+          (e && typeof e === "object" && "message" in e && String((e as Error).message).toLowerCase().includes("fetch"))
+        const msg = isNetworkError
+          ? "No se pudo conectar con el backend. ¿Está corriendo? (en la carpeta backend: yarn dev). Abrí la app desde http://localhost:5173, no desde un archivo."
+          : e instanceof Error ? e.message : "Error de red"
+        alert("No se pudo crear la sala. " + msg)
+      })
+  }
 
+  // Listener en el botón interno del custom element (shadow) cuando ya está en el DOM
+  setTimeout(() => {
+    const btnSala = conteiner.querySelector(".boton-sala") as HTMLElement & { shadowRoot: ShadowRoot }
+    const innerBtn = btnSala?.shadowRoot?.querySelector("button")
+    innerBtn?.addEventListener("click", onIngresarSala)
+  }, 100)
 
-
- 
+  return conteiner
 }

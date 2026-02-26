@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { rtdb } from '../db';
 import { ref, set, onValue } from 'firebase/database'
- 
+
 
 
 type Jugada = "Piedra" | "Papel" | "Tijera" | ""
@@ -14,7 +14,8 @@ type gameState = {
     whoAmI: "player1" | "player2" | "",
     connection: true | false,
     puntaje: number,
-    resultado:string
+    resultado: string,
+    playerName: string,
 }
 
 
@@ -37,7 +38,8 @@ export class State {
             whoAmI: "",
             puntaje: scoreIinicial,
             roomRtdb: "",
-            resultado:""
+            resultado: "",
+            playerName: "",
         }
 
     }
@@ -65,12 +67,12 @@ export class State {
         this.listeners.push(callback)
     }
 
-    setMove(miJugada:Jugada) {
+    setMove(miJugada: Jugada) {
 
         const nowData = this.getState()
-        if(!nowData.whoAmI) return
+        if (!nowData.whoAmI) return
 
-        this.setState({miJugada:miJugada})
+        this.setState({ miJugada: miJugada })
         const ruta = `/rooms/${nowData.roomRtdb}/${nowData.whoAmI}/choice`
 
 
@@ -142,7 +144,7 @@ export class State {
                 moveRival = player2.choice || ""
                 movemio = player1.choice || ""
                 onlinRival = player2.online
-              } else {
+            } else {
                 moveRival = player1.choice || ""
                 movemio = player2.choice || ""
                 onlinRival = player1.online
@@ -152,16 +154,16 @@ export class State {
                 {
                     miJugada: movemio,
                     rivalJugada: moveRival,
-                    connection:onlinRival
+                    connection: onlinRival
                 })
 
-            if(moveRival !== "" && movemio !== ""){
-                this.calcWinner(movemio,moveRival)
-            } 
-        }) 
+            if (moveRival !== "" && movemio !== "") {
+                this.calcWinner(movemio, moveRival)
+            }
+        })
     }
 
-        calcWinner(miJugada: Jugada, rivalJugada: Jugada) {
+    calcWinner(miJugada: Jugada, rivalJugada: Jugada) {
         let resultado = "";
 
         if (miJugada === rivalJugada) {
@@ -178,9 +180,12 @@ export class State {
         } else {
             resultado = "Perdiste";
         }
-        
+
         console.log("RESULTADO FINAL:", resultado);
-        this.setState({ resultado: resultado }); 
+        this.setState({ resultado: resultado });
     }
 
 }
+
+// Instancia única del state para toda la app
+export const state = new State("");
