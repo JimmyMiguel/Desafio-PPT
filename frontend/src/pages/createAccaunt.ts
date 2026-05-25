@@ -4,6 +4,7 @@ import "../component/papelCom"
 import "../component/tijeraCom"
 import "../component/btnImputCom"
 import { state } from "../core/state"
+import { getShadowInput, onShadowBtn } from "../utils/dom"
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000"
 
@@ -88,15 +89,13 @@ export const createAccaunt = (goTo: Function): HTMLElement => {
   }
 
   function onIngresarSala() {
-    const inputCom = conteiner.querySelector(".inputBtn") as HTMLElement & { shadowRoot: ShadowRoot }
-    const input = inputCom?.shadowRoot?.querySelector("input") as HTMLInputElement
-    const name = input?.value?.trim() ?? ""
+    const name = getShadowInput(conteiner, ".inputBtn")
     if (!name) {
       alert("Escribí tu nombre para continuar")
       return
     }
-    state.createRoom()
     state.setState({ playerName: name })
+    state.createRoom()
     const roomId = state.getState().roomId
     const url = `${API_BASE}/rooms`
     fetch(url, {
@@ -120,12 +119,7 @@ export const createAccaunt = (goTo: Function): HTMLElement => {
       })
   }
 
-  // Listener en el botón interno del custom element (shadow) cuando ya está en el DOM
-  setTimeout(() => {
-    const btnSala = conteiner.querySelector(".boton-sala") as HTMLElement & { shadowRoot: ShadowRoot }
-    const innerBtn = btnSala?.shadowRoot?.querySelector("button")
-    innerBtn?.addEventListener("click", onIngresarSala)
-  }, 100)
+  onShadowBtn(conteiner, ".boton-sala", onIngresarSala)
 
   return conteiner
 }

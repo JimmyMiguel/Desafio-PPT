@@ -2,11 +2,11 @@ import "../component/btnAzulCom"
 import "../component/piedraCom"
 import "../component/papelCom"
 import "../component/tijeraCom"
-export const inicioPages = (goTo: Function): HTMLElement => {
+import { onShadowBtn } from "../utils/dom"
 
-  const conteiner = document.createElement('div');
-  if (conteiner) {
-    conteiner.innerHTML = `
+export const inicioPages = (goTo: Function): HTMLElement => {
+  const conteiner = document.createElement("div")
+  conteiner.innerHTML = `
 <style>
       @import url("https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap");
 
@@ -61,6 +61,7 @@ export const inicioPages = (goTo: Function): HTMLElement => {
         <div class="botones">
             <btn-azul-com class="boton-jugar">Nuevo Juego</btn-azul-com>
             <btn-azul-com class="boton-sala">Ingresar a sala</btn-azul-com>
+            <btn-azul-com class="boton-stats">Mis partidos</btn-azul-com>
         </div>
 
         <div class="manos">
@@ -71,12 +72,9 @@ export const inicioPages = (goTo: Function): HTMLElement => {
     </div>
     `
 
-    const botonJugar = conteiner.querySelector(".boton-jugar")
-    botonJugar?.addEventListener("click", () => {
-      goTo("/createAccaunt")
+  onShadowBtn(conteiner, ".boton-jugar", () => goTo("/createAccaunt"))
+  onShadowBtn(conteiner, ".boton-sala", () => goTo("/login"))
+  onShadowBtn(conteiner, ".boton-stats", () => goTo("/estadisticas"))
 
-    })
-
-  }
   return conteiner
 }

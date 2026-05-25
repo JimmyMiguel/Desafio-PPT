@@ -3,11 +3,14 @@ import "../component/piedraCom"
 import "../component/papelCom"
 import "../component/tijeraCom"
 import "../component/btnImputCom"
+import { state } from "../core/state"
+import { getShadowInput, onShadowBtn } from "../utils/dom"
 
-export const login = (goTo:Function):HTMLElement=>{
-    const conteiner = document.createElement('div');
-    if(conteiner){
-    conteiner.innerHTML = `
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000"
+
+export const login = (goTo: Function): HTMLElement => {
+  const conteiner = document.createElement("div")
+  conteiner.innerHTML = `
 <style>
       @import url("https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap");
 
@@ -53,6 +56,12 @@ export const login = (goTo:Function):HTMLElement=>{
             margin-bottom: 40px;
             gap: 20px;
       }
+      .btn-txt {
+        font-family: Odibee Sans;
+        font-size: 45px;
+        text-align: center;
+        margin-bottom: -18px;
+      }
 
     </style>
 
@@ -61,7 +70,9 @@ export const login = (goTo:Function):HTMLElement=>{
         <h1 class="title">Piedra <br> Papel <span>ó</span> <br> Tijera</h1>
         
         <div class="botones">
-            <btn-input-com class="inputBtn" placeholder="código" ></btn-input-com>
+            <h1 class="btn-txt">Tu Nombre</h1>
+            <btn-input-com class="inputNombre"></btn-input-com>
+            <btn-input-com class="inputBtn" placeholder="código"></btn-input-com>
             <btn-azul-com class="boton-sala">Ingresar a sala</btn-azul-com>
         </div>
 
@@ -72,12 +83,32 @@ export const login = (goTo:Function):HTMLElement=>{
         </div>
     </div>
     `
+
+  function onIngresar() {
+    const name = getShadowInput(conteiner, ".inputNombre")
+    const roomId = getShadowInput(conteiner, ".inputBtn")
+    if (!name) {
+      alert("Escribí tu nombre")
+      return
     }
-    
-        
-    return conteiner
+    if (!roomId) {
+      alert("Escribí el código de la sala")
+      return
+    }
+    fetch(`${API_BASE}/rooms/${roomId}`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Sala no encontrada")
+        return res.json()
+      })
+      .then((room) => {
+        state.setState({ playerName: name, rivalName: room.player1_name || "" })
+        state.joinRoom(roomId)
+        goTo("/rooms")
+      })
+      .catch(() => alert("No se encontró la sala. Revisá el código."))
+  }
 
+  onShadowBtn(conteiner, ".boton-sala", onIngresar)
 
-
- 
+  return conteiner
 }

@@ -1,7 +1,9 @@
- import { createAccaunt } from "../pages/createAccaunt";
+import { createAccaunt } from "../pages/createAccaunt";
 import { inicioPages } from "../pages/inicioPage";
 import { login } from "../pages/login";
 import { rooms } from "../pages/rooms";
+import { resultadoPage } from "../pages/resultado";
+import { estadisticasPage } from "../pages/estadisticas";
  
 
 type Route = {
@@ -29,6 +31,14 @@ export const arrayRoutes: Route[] = [
     {
         path:"/rooms",
         view: rooms
+    },
+    {
+        path: "/resultado",
+        view: resultadoPage
+    },
+    {
+        path: "/estadisticas",
+        view: estadisticasPage
     }
 
 ]

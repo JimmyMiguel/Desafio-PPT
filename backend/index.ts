@@ -1,7 +1,8 @@
 import "./config.ts";
 import express from "express";
 import cors from "cors";
-import { pool } from "./bd/bdNeon.ts";
+import { sequelize } from "./bd/sequelize.ts";
+import { Room } from "./models/Room.ts";
 
 const app = express();
 app.use(cors());
@@ -14,33 +15,27 @@ app.get("/health", (_req, res) => {
   res.json({ ok: true });
 });
 
-// Crear tabla si no existe (ejecutar al iniciar)
+// Sincronizar modelos con la base de datos (crea tablas si no existen)
 async function initDb() {
   try {
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS rooms (
-        id UUID PRIMARY KEY,
-        player1_name TEXT NOT NULL,
-        created_at TIMESTAMPTZ DEFAULT NOW()
-      )
-    `);
-    console.log("Tabla rooms lista");
+    await sequelize.sync();
+    console.log("Base de datos lista (Sequelize)");
   } catch (e) {
     console.error("Error al inicializar la base de datos:", e);
   }
 }
 
-// Endpoint: crear sala y guardar nombre del jugador
+// POST /rooms - Crear sala y guardar nombre del jugador
 app.post("/rooms", async (req, res) => {
   try {
     const { roomId, name } = req.body;
     if (!roomId || !name) {
       return res.status(400).json({ error: "Faltan roomId o name" });
     }
-    await pool.query(
-      `INSERT INTO rooms (id, player1_name) VALUES ($1, $2)`,
-      [roomId, name]
-    );
+    await Room.create({
+      id: roomId,
+      player1_name: name,
+    });
     res.status(201).json({ roomId });
   } catch (e) {
     console.error(e);
@@ -48,9 +43,42 @@ app.post("/rooms", async (req, res) => {
   }
 });
 
-// Endpoints adicionales los podés sumar acá
-// app.get("/rooms/:id", ...)
-// app.post("/rooms/:id/join", ...)
+// GET /rooms/:id - Obtener una sala por id
+app.get("/rooms/:id", async (req, res) => {
+  try {
+    const room = await Room.findByPk(req.params.id);
+    if (!room) {
+      return res.status(404).json({ error: "Sala no encontrada" });
+    }
+    res.json({
+      id: room.id,
+      player1_name: room.player1_name,
+      created_at: room.createdAt,
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "Error al obtener la sala" });
+  }
+});
+
+// GET /rooms - Listar todas las salas (opcional)
+app.get("/rooms", async (_req, res) => {
+  try {
+    const rooms = await Room.findAll({
+      order: [["createdAt", "DESC"]],
+    });
+    res.json(
+      rooms.map((r) => ({
+        id: r.id,
+        player1_name: r.player1_name,
+        created_at: r.createdAt,
+      }))
+    );
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "Error al listar salas" });
+  }
+});
 
 async function start() {
   await initDb();
